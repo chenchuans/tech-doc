@@ -1,0 +1,11 @@
+{
+  "name": "doc",
+  "version": "1.0.0",
+  "description": "my-fe-doc",
+  "main": "index.js",
+  "scripts": {
+    "test": "dev"
+  },
+  "author": "chenchuan",
+  "license": "ISC"
+}

@@ -4,7 +4,8 @@
   "description": "my-fe-doc",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "push": "sh ./push.sh"
   },
   "author": "chenchuan",
   "license": "ISC"

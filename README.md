@@ -18,3 +18,4 @@ git clone https://github.com/chenchuans/tech-doc.git
 >* **0306** ----------------- call，bind实现
 >* **0307** ----------------- new，createObejct实现
 >* **0308** ----------------- 深克隆函数实现
+>* **0309** ----------------- 扁平化数组

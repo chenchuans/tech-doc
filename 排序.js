@@ -1,11 +1,5 @@
-#### 冒泡排序
-通过相邻元素的比较和交换，使得每一趟循环都能找到未有序数组的最大值或最小值。
 
-- 最好： O(n)，只需要冒泡一次数组就有序了。
-- 最坏： O(n²)
-- 平均： O(n²)
-##### 单向冒泡
-``` javascript
+// 冒泡排序
 function bubbleort(nums) {
   if (Array.isArray(nums)) {
     return new TypeError('not a array');
@@ -13,7 +7,7 @@ function bubbleort(nums) {
   if (nums.length < 2) {
     return nums;
   }
-  
+
   let len = nums.length;
   for (let i = 0; i < len - 1; i++) {
     // 如果一轮比较中没有需要交换的数据，则说明数组已经有序。主要是对[5,1,2,3,4]之类的数组进行优化
@@ -27,10 +21,7 @@ function bubbleort(nums) {
     if (mark) return;
   }
 }
-```
-##### 双向冒泡
-> 普通的冒泡排序在一趟循环中只能找出一个最大值或最小值，双向冒泡则是多一轮循环既找出最大值也找出最小值。
-``` javascript
+
 function bubbleSort_twoWays(nums) {
   if (Array.isArray(nums)) {
     return new TypeError('not a array');
@@ -62,4 +53,22 @@ function bubbleSort_twoWays(nums) {
     if(mark) return;
   }
 }
-```
+
+// 选择排序
+function selectSort(nums) {
+  if (Array.isArray(nums)) {
+    return new TypeError('not a array');
+  }
+  if (nums.length < 2) {
+    return nums;
+  }
+
+  let len = nums.length;
+  for(let i = 0; i < len; i++) {
+    for(let j = i + 1; j < len; j++) {
+      if (nums[i] > nums[j]) {
+        [nums[i], nums[j]] = [nums[j], nums[i]];
+      }
+    }
+  }
+}

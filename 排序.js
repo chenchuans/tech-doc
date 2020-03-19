@@ -72,3 +72,26 @@ function selectSort(nums) {
     }
   }
 }
+
+
+// 插入排序
+
+function insertSort(nums) {
+  if (Array.isArray(nums)) {
+    return new TypeError('not a array');
+  }
+  if (nums.length < 2) {
+    return nums;
+  }
+
+  let len = nums.length;
+  for(let i = 0; i < len; i++) {
+    let temp = nums[i];
+    let j = i;
+    while(j >= 0 && temp < nums[j - 1]) {
+      nums[j] = nums[j - 1];
+      j--;
+    }
+    nums[j] = temp;
+  }
+}

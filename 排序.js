@@ -1,7 +1,7 @@
 
 // 冒泡排序
 function bubbleort(nums) {
-  if (Array.isArray(nums)) {
+  if (!Array.isArray(nums)) {
     return new TypeError('not a array');
   }
   if (nums.length < 2) {
@@ -23,7 +23,7 @@ function bubbleort(nums) {
 }
 
 function bubbleSort_twoWays(nums) {
-  if (Array.isArray(nums)) {
+  if (!Array.isArray(nums)) {
     return new TypeError('not a array');
   }
   if (nums.length < 2) {
@@ -56,7 +56,7 @@ function bubbleSort_twoWays(nums) {
 
 // 选择排序
 function selectSort(nums) {
-  if (Array.isArray(nums)) {
+  if (!Array.isArray(nums)) {
     return new TypeError('not a array');
   }
   if (nums.length < 2) {
@@ -77,7 +77,7 @@ function selectSort(nums) {
 // 插入排序
 
 function insertSort(nums) {
-  if (Array.isArray(nums)) {
+  if (!Array.isArray(nums)) {
     return new TypeError('not a array');
   }
   if (nums.length < 2) {
@@ -94,4 +94,85 @@ function insertSort(nums) {
     }
     nums[j] = temp;
   }
+}
+
+// 快速排序
+function quickSort(nums) {
+  if (!Array.isArray(nums)) {
+    return new TypeError('not a array');
+  }
+  if (nums.length < 2) {
+    return nums;
+  }
+
+  // 递归排序基数左右两边的序列
+  function recursive(array, left, right) {
+    if (left > right) {
+      return;
+    }
+    let index = partition(array, left, right);
+    recursive(array, left, index - 1);
+    recursive(array, index + 1, right);
+    return array;
+  }
+  // 将小于基数的数放到基数左边，大于基数的数放到基数右边，并返回基数的位置
+  function partition(array, left, right) {
+    // 取第一个数为基数
+    let temp = array[left];
+    while (left < right) {
+      while (left < right && array[right] >= temp) {
+        right--;
+        array[left] = array[right];
+      }
+      while (left < right && array[left] < temp) {
+        left++;
+        array[right] = array[left];
+      }
+    }
+    // 修改基数的位置
+    array[left] = temp;
+    return left;
+  }
+  recursive(nums, 0, nums.length - 1);
+}
+console.log(quickSort1([3 ,2, 10, 1, 7, 3]))
+function quickSort1(nums) {
+  if (!Array.isArray(nums)) {
+    return new TypeError('not a array');
+  }
+  if (nums.length < 2) {
+    return nums;
+  }
+  function recursive(array, left, right) {
+    if (left >= right) {
+      return;
+    }
+    let index = partation(array, left, right);
+    recursive(array, left, index - 1);
+    recursive(array, index + 1, right);
+    return array;
+  }
+  function partation(array, left, right) {
+    let temp = array[left];
+    let p = left + 1;
+    let q = right;
+    while (p <= q) {
+      while (p <= q && array[p] < temp) {
+        p++;
+      } 
+      while (p <= q && array[p] > temp) {
+        q--;
+      } 
+      if (p <= q) {
+        [array[p], array[q]] = [array[q], array[p]];
+        // 交换值后两边各向中间推进一位
+        p++;
+        q--;
+      }
+    } 
+    // 修改基数的位置
+    [array[left], array[q]] = [array[q], array[left]];
+    return q;
+  }
+  recursive(nums, 0, nums.length - 1);
 }

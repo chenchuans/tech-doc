@@ -257,3 +257,193 @@ function bucketSort(nums) {
   });
 }
 
+// 基数排序
+function radixSort(nums) {
+  if (!Array.isArray(nums)) {
+    return new TypeError('not a array');
+  }
+  if (nums.length < 2) {
+    return nums;
+  }
+  // 计算位数
+  function getDigits(n) {
+    let sum = 0;
+    while (n) {
+      sum++;
+      n = parseInt(n / 10);
+    }
+    return sum;
+  }
+  // 第一维表示位数即0-9，第二维表示里面存放的值
+  let array = Array.from(Array(10).map(() => Array()));
+  let max = Math.max(...nums);
+  let maxDigits = getDigits(max);
+  let len = nums.length;
+  for (let i = 0; i < len; i++) {
+    // 用0把每一个数都填充成相同的位数
+    nums[i] = (nums[i] + '').padStart(maxDigits, 0);
+    // 先根据个位数把每一个数放到相应的桶里
+    let temp = nums[i][nums[i].length - 1];
+    array[temp].push(nums[i]);
+  }
+  // 循环判断每个位数
+  for (let i = maxDigits - 2; i >= 0; i--) {
+    // 循环每一个桶
+    for (let j = 0; j <= 9; j++) {
+      let temp = array[j];
+      let len = temp.length;
+      // 根据当前的位数i把桶里的数放到相应的桶里
+      while (len--) {
+        let str = temp[0];
+        temp.shift();
+        array[str[i].push(str)];
+      }
+    }
+  }
+  // 修改回原数组
+  let res = [].concat.apply([], array);
+  nums.forEach((val, index) => {
+    nums[index] = +res[index];
+  });
+}
+
+// 计数排序
+function countingSort(nums) {
+  if (!Array.isArray(nums)) {
+    return new TypeError('not a array');
+  }
+  if (nums.length < 2) {
+    return nums;
+  }
+  let array = [];
+  let max = Math.max(...nums);
+  let min = Math.min(...nums);
+  // 装桶
+  let len = nums.length;
+  for (let i = 0; i < len; i++) {
+    let temp = nums[i];
+    array[temp] = array[temp] + 1 || 1;
+  }
+  let index = 0;
+  // 还原原数组
+  for (let i = 0; i <= max; i++) {
+    while (array[i] > 0) {
+      nums[index++] = i;
+      array[i]--;
+    }
+  }
+}
+// 计数排序2
+function countingSort2(nums) {
+  if (!Array.isArray(nums)) {
+    return new TypeError('not a array');
+  }
+  if (nums.length < 2) {
+    return nums;
+  }
+  let array = [];
+  let max = Math.max(...nums);
+  let min = Math.min(...nums);
+  // 加上最小值的相反数来缩小数组范围
+  let add = -min;
+  let len = nums.length;
+  for (let i = 0; i < len; i++) {
+    let temp = nums[i];
+    temp += add;
+    array[temp] = array[temp] + 1 || 1;
+  }
+  let index = 0;
+  for (let i = min; i <= max; i++) {
+    let temp = array[i + add];
+    while (temp > 0) {
+      nums[index++] = i;
+      temp--;
+    }
+  }
+}
+
+// 堆排序
+function heapSort(nums) {
+  if (!Array.isArray(nums)) {
+    return new TypeError('not a array');
+  }
+  if (nums.length < 2) {
+    return nums;
+  }
+  // 调整最大堆，使index的值大于左右节点
+  function adjustHeap(nums, index, size) {
+    // 交换后可能会破坏堆结构，需要循环使得每一个父节点都大于左右结点
+    while (true) {
+      let max = index;
+      let left = index * 2 + 1; // 左节点
+      let right = index * 2 + 2; // 右节点
+      if (left < size && nums[max] < nums[left]) {
+        max = left;
+      }
+      if (right < size && nums[max] < nums[right]) {
+        max = right;
+      }
+      // 如果左右结点大于当前的结点则交换，并再循环一遍判断交换后的左右结点位置是否破坏了堆结构（比左右结点小了）
+      if (index !==  max) {
+        [nums[index], nums[max]] = [nums[max], nums[index]];
+        index = max;
+      }
+      else {
+        break;
+      }
+    }
+  }
+  // 建立最大堆
+  function buildHeap(nums) {
+    if (!Array.isArray(nums)) {
+    return new TypeError('not a array');
+  }
+  if (nums.length < 2) {
+    return nums;
+  }
+    // 注意这里的头节点是从0开始的，所以最后一个非叶子结点是 parseInt(nums.length/2)-1
+    let start = parseInt(nums.length / 2) - 1;
+    let size = nums.length;
+    // 从最后一个非叶子结点开始调整，直至堆顶。
+    for (let i = start; i >= 0; i--) {
+      adjustHeap(nums, i, size);
+    }
+  }
+
+  buildHeap(nums);
+  // 循环n-1次，每次循环后交换堆顶元素和堆底元素并重新调整堆结构
+  let len = nums.length;
+  for (let i = 0; i < len; i++) {
+    [nums[i], nums[0]] = [nums[0], nums[i]];
+    adjustHeap(nums, 0, i);
+  }
+}
+
+// 希尔排序
+function shellSort(nums) {
+  if (!Array.isArray(nums)) {
+    return new TypeError('not a array');
+  }
+  if (nums.length < 2) {
+    return nums;
+  }
+  let len = nums.length;
+  // 初始步数
+  let gap = parseInt(len / 2);
+  // 逐渐缩小步数
+  while (gap) {
+    // 从第gap个元素开始遍历
+    for (let i = gap; i < len; i++) {
+      // 逐步其和前面其他的组成员进行比较和交换
+      for (let j = i - gap; j >= 0; j++) {
+        if (nums[j] > nums[j + gap]) {
+          [nums[j], nums[j + gap]] = [nums[j + gap], nums[j]];
+        } 
+        else {
+          break;
+        }
+      }
+    }
+    gap = parseInt(gap / 2);
+  }
+}

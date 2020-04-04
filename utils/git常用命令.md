@@ -4,7 +4,17 @@
 > Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。
 工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库
 
-
+##### 查看git配置信息
+git config --list
+##### 查看git用户名
+git config user.name
+##### 查看邮箱配置
+git config user.email
+##### 全局配置用户名
+git config --global user.name "nameVal"
+##### 全局配置邮箱
+git config --global user.email "eamil@qq.com"
+----
 ### 创建版本库：
 
 #####创建文件
@@ -86,9 +96,8 @@ $ git push -u origin master [-f]
 #此后，每次本地提交后,就可以使用命令推送最新修改
 $ git push origin master
 从远程库克隆
-
-#
-git clone [url]
+----
+# git clone [url]
 比如，要克隆 Ruby 语言的 Git 代码仓库 Grit，可以用下面的命令：
 
 #这会在当前目录下创建一个名为grit的目录，其中包含一个.git的目录，用于保存下载下来的所有版本记录，然后从中取出最新版本的文件拷贝。如果进入这个新建的grit目录，你会看到项目中的所有文件已经在里边了，准备好后续的开发和使用。

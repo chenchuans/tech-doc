@@ -102,3 +102,4 @@ git clone https://github.com/chenchuans/tech-doc.git
 >* **0529** -----------------
 >* **0601** ----------------- 浏览器报错 net::ERR_CONTENT_LENGTH_MISMATCH 200 (OK) 解决办法
 >* **0603** ----------------- 如何用将一个数组中任意字段的不同对数组进行分类
+>* **0605** ----------------- tab切换频繁发请求优化(sessionStorage)

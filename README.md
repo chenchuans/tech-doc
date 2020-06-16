@@ -104,3 +104,5 @@ git clone https://github.com/chenchuans/tech-doc.git
 >* **0603** ----------------- 如何用将一个数组中任意字段的不同对数组进行分类
 >* **0605** ----------------- tab切换频繁发请求优化(sessionStorage)
 >* **0610** ----------------- Vue-Virtual-Scroller组件用法
+>* **0616** ----------------- JSON.stringify()方法的一些用法
+>* **0617** ----------------- try catch finally用法

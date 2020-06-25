@@ -105,3 +105,4 @@ git clone https://github.com/chenchuans/tech-doc.git
 >* **0610** ----------------- Vue-Virtual-Scroller组件用法
 >* **0616** ----------------- JSON.stringify()方法的一些用法
 >* **0617** ----------------- try catch finally用法
+>* **0625** ----------------- 实用的css属性

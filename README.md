@@ -91,4 +91,4 @@ git clone https://github.com/chenchuans/tech-doc.git
 >* **0616** ----------------- JSON.stringify()方法的一些用法
 >* **0617** ----------------- try catch finally用法
 >* **0625** ----------------- 实用的css属性
->* **0629** ----------------- 
+>* **0629** ----------------- 前端工程化-用Jenkins实现Node应用的持续集成

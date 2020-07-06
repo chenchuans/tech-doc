@@ -93,3 +93,4 @@ git clone https://github.com/chenchuans/tech-doc.git
 >* **0629** ----------------- 前端工程化-用Jenkins实现Node应用的持续集成
 >* **0701** ----------------- react问题总结
 >* **0702** ----------------- 两行css代码实现瀑布流
+>* **0706** ----------------- JavaScript常用API合集

@@ -9,6 +9,7 @@ const mime = require('mime');
 const {promisify, inspect} = require('util');
 const handlebars = require('handlebars');
 const stat = promisify(fs.stat);
+const zlib = require('zlib');
 // 代码内部可以读写环境变量
 console.log(process.env);
 
@@ -20,6 +21,11 @@ function list() {
 
 // 每个实例都有一个名字，第一部分是项目名，第二部分是模块名
 const debug = require('debug')('app.js');
+/**
+ * 1. 显示目录下文件列表和返回内容
+ * 2. 实现压缩的功能
+ * 3. 实现缓存
+ *  */
 class Server {
     constructor(argv) {
         this.list = list();
@@ -33,6 +39,7 @@ class Server {
             debug(`server started at ${chalk.green('http://' + host + ':' + port)}`)
         });
     }
+    // 静态文件服务器
     async request(req, res) {
         const {pathname} = url.parse(req.url);
         if (pathname === '/favicon.ico') return this.sendError(req, res);
@@ -62,12 +69,51 @@ class Server {
         }
     }
     sendFile(req, res, filepath, statObj) {
-        res.setHeader('Content-Type', mime.getType(filepath)); // 通过拿到文件类型设置
-        fs.createReadStream(filepath).pipe(res);
+        if (this.handleCache(req, res, statObj)) return;
+        // 如果走缓存下面无需执行
+        res.setHeader('Content-Type', mime.getType(filepath) + ';charset=utf-8'); // 通过拿到文件类型设置
+        const encoding = this.getEncoding(req, res);
+        if (encoding) {
+            fs.createReadStream(filepath).pipe(encoding).pipe(res);
+        } else {
+            fs.createReadStream(filepath).pipe(res);
+        }
+        
     }
     senError(req, res) {
         res.statusCode = 500;
         res.end(`there is something wrong in the server! please try later!`);
+    }
+    // 缓存
+    handleCache(req, res, statObj) {
+        const ifModifiedSince = req.headers['if-modified-since'];
+        const isNoneMatch = req.headers['is-none-match'];
+        req.setHeader('Cache-Control', 'private,max-age=30');
+        res.setHeader('Expires', new Date(Date.now() + 30 * 1000).toGMTString());
+        const etag = statObj.size;
+        const lastModified = statObj.ctime.toGMTString();
+        res.setHeader('ETag', etag);
+        res.setHeader('Last-Modified', lastModified);
+        if ((isNoneMatch && isNoneMatch === etag) || (ifModifiedSince && ifModifiedSince === lastModified)) {
+            res.writeHead(304);
+            res.end();
+            return true;
+        }
+        return false;
+    }
+    // 压缩
+    getEncoding(req, res) {
+        // Accept-Encoding: gzip, deflate
+        const acceptEncoding = req.headers['accept-encoding'];
+        if (/\bgzip\b/.test(acceptEncoding)) {
+            res.setHeader('Content-Encoding', 'gzip');
+            return zlib.createGzip();
+        } else if (/\bdeflate\b/.test(acceptEncoding)) {
+            res.setHeader('Content-Encoding', 'deflate');
+            return zlib.createDeflate();
+        } else {
+            return null;
+        }
     }
 }
 

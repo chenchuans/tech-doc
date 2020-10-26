@@ -121,3 +121,4 @@ git clone https://github.com/chenchuans/tech-doc.git
 >* **1015** ----------------- 网络(HTTP状态码整理)
 >* **1016** ----------------- Vue3+TypeScript 完整项目上手教程
 >* **1019** ----------------- Vue 中 Axios 的封装和 API 接口的管理
+>* **1026** -----------------  Axios 中核心知识点

@@ -1,0 +1,43 @@
+{
+  "name": "draw-page-structure",
+  "version": "1.0.8",
+  "description": "a nice tool to make skeleton screen",
+  "main": "src",
+  "bin": {
+    "dps": "bin/dps-cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/famanoder/dps.git"
+  },
+  "author": "famanoder",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./bin/dps.js start"
+  },
+  "puppeteer_version": "1.7.0",
+  "app": {
+    "alias": "dps"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "cheerio": "^1.0.0-rc.2",
+    "commander": "^2.18.0",
+    "cross-env": "^5.2.0",
+    "fast-install-puppeteer": "^1.0.5",
+    "node-emoji": "^1.8.1",
+    "ora": "^3.0.0",
+    "prompts": "^1.1.0"
+  },
+  "bugs": {
+    "url": "https://github.com/famanoder/DrawPageStructure/issues"
+  },
+  "homepage": "https://github.com/famanoder/DrawPageStructure#readme",
+  "keywords": [
+    "dps",
+    "skeleton screen",
+    "skeleton",
+    "loading",
+    "prerender"
+  ]
+}
